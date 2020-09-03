@@ -1,22 +1,3 @@
-/* DESIGN - define API, which func users like to call
-// Open and read HTML file into string using io.reader
-	// Use parse, get node, traverse child nodes DFS
-// Extract all links <a href="">...</a>
-// For each extracted link, return struct including href & text
-	// Can strip HTML in link, extra whitespaces, newlines, etc
-	// Ignore nested link
-// Approx struct output
-	Link {
-		Href: "/dog",
-		Text: "Something in a span Text not in a span Bold text!",
-	}
-// REF:
-	// https://godoc.org/golang.org/x/net/html
-	// Hint: See NodeType constants and look for the types that you can ignore.
-
-
-*/
-
 // Package link contains functions to parse and extract HTML links from an HTML document
 package link
 
@@ -72,7 +53,7 @@ func linkNodes(n *html.Node) []*html.Node {
 func buildLink(n *html.Node) Link {
 	var ret Link
 
-	// we already know this is a link node, so we can just extract the link val directly
+	// TODO: WHy doesn't this work, we already know this is a link node, so we can just extract the link val directly
 	// ret.Href = n.Attr[0].Val
 
 	// get href out of node
@@ -101,3 +82,23 @@ func text(n *html.Node) string {
 	}
 	return strings.Join(strings.Fields(ret), " ")
 }
+
+/* DESIGN - define API, which func users like to call
+// Open and read HTML file into string using io.reader
+	// Use parse, get node, traverse child nodes DFS
+// Extract all links <a href="">...</a>
+// For each extracted link, return struct including href & text
+	// Can strip HTML in link, extra whitespaces, newlines, etc
+	// Ignore nested link
+// Approx struct output
+	Link {
+		Href: "/dog",
+		Text: "Something in a span Text not in a span Bold text!",
+	}
+// REF:
+	// https://godoc.org/golang.org/x/net/html
+	// Hint: See NodeType constants and look for the types that you can ignore.
+
+// ENHANCEMENT IDEAS / TIPS
+	// how to change from a recursive function to for // related topics, stack/heap, each recusive call creates stack frame, associated w/ add'l vars to track. Heap stores mem not related to func calls e.g local vars. Go has new keyword, which creates on heap vs local var. Can lead to stack overflow. RECURSION mostly in academia, practical apps don't.
+*/
